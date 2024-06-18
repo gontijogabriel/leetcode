@@ -11,25 +11,31 @@ class Solution:
         }
 
         numbers_list = []
-        last_number = 0
         for x in s:
-            number = roman[x]
-            if len(numbers_list) > 0:
-                if number > last_number:
-                    r = number + (-1 * last_number)
-                    numbers_list.append(r)
-                else:
-                    r = last_number + number
-                    numbers_list.append(r)
+            numbers_list.append(roman[x])
 
-            print(last_number)
-            numbers_list.append(number)
-            last_number = number
+        
+        numbers = []
+        last = 0
+        cont = 1
+        for current in numbers_list:
+            if cont == 1:
+                numbers.append(current)
+            
+            if current <= last:
+                numbers.append(current)
 
-        print(numbers_list)
-        print(sum(numbers_list))
+            if current > last:
+                del(numbers[-1])
+                numbers.append(current + (-1 * last))
+
+            last = current
+            cont += 1
+
+        print(sum(numbers))
+            
 
 
 result = Solution()
-result.romanToInt(s = "LVIII")
 result.romanToInt(s = "MCMXCIV")
+result.romanToInt(s = "LVIII")
